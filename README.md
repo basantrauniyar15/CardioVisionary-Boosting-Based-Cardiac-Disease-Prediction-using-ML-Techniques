@@ -20,6 +20,6 @@ To run the project, clone this repository and install the necessary dependencies
 
 The web application provides a user-friendly interface where users can enter their health data. Upon submission, the system predicts the likelihood of heart disease and provides the corresponding severity level. Additionally, it offers personalized health advice and precautions based on the prediction. The interface is built using modern web technologies, ensuring a smooth and intuitive user experience.
 
-Model Evaluation
+**Model Evaluation**
 
 Several machine learning models were trained and evaluated for this project. The models include Logistic Regression, Random Forest, SVM, and Gradient Boosting. The Gradient Boosting model achieved the highest accuracy (98.37%), followed by Random Forest (97.28%). These models were evaluated using metrics such as accuracy, F1-score, and ROC curves, with Gradient Boosting emerging as the best model for predicting heart disease.
