@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8d7da; /* Light red background */
+            color: #721c24; /* Darker red text */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 90%; /* Adjusted width for better control */
+            max-width: 1200px; /* Max width for large screens */
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px; /* Added padding */
+        }
+        h1 {
+            text-align: center;
+            margin: 20px 0; /* Adjusted margin for spacing */
+            font-size: 24px;
+        }
+        .input-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+            gap: 20px; /* Gap between inputs */
+            justify-items: center; /* Center inputs horizontally */
+            align-items: center; /* Align inputs vertically */
+            width: 100%; /* Full width for grid */
+        }
+        label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* Space between buttons */
+            margin-top: 20px;
+        }
+        input[type="submit"], button {
+            width: 100px; /* Button width */
+            height: 40px; /* Button height */
+            background-color: #dc3545;
+            border: none;
+            border-radius: 5px; /* Slightly rounded shape */
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        input[type="submit"] {
+            background-color: #dc3545; /* Red for submit */
+        }
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+        button {
+            background-color: #6c757d; /* Grey for clear */
+        }
+        button:hover {
+            background-color: #5a6268;
+        }
+        .button-icon {
+            margin-right: 5px; /* Space between icon and text */
+        }
+        .output-container {
+            display: flex;
+            margin-top: 20px; /* Add margin to separate from inputs */
+            width: 100%; /* Full width for the output container */
+        }
+        .prediction, .suggestion {
+            flex: 1; /* Equal space for both sections */
+            padding: 10px;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            margin: 5px;
+            background-color: #f8d7da;
+            box-sizing: border-box;
+        }
+        .prediction {
+            margin-right: 10px;
+            text-align: center;
+        }
+        .prediction-level {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .suggestion h1 {
+            margin: 0;
+        }
+    </style>
+    <script>
+        function clearFields() {
+            // Clear values in input fields
+            const inputs = document.querySelectorAll('.input-container input[type="number"]');
+            inputs.forEach(input => input.value = '');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>CardioVisionary:Cardiovascular Disease Prediction</h1>
+        <form action="/predict" method="post">
+            <div class="input-container">
+                <label for="sex">Sex (1 = male; 0 = female):</label>
+                <input type="number" name="sex" value="{{ sex }}" required min="0" max="1">
+
+                <label for="cp">Chest Pain Type (0-3):</label>
+                <input type="number" name="cp" value="{{ cp }}" required min="0" max="3">
+
+                <label for="age">Age:</label>
+                <input type="number" name="age" value="{{ age }}" required min="0">
+
+                <label for="trestbps">Resting BP (trestbps):</label>
+                <input type="number" name="trestbps" value="{{ trestbps }}" required>
+
+                <label for="chol">Cholesterol (chol):</label>
+                <input type="number" name="chol" value="{{ chol }}" required>
+
+                <label for="fbs">Fasting Blood Sugar (fbs):</label>
+                <input type="number" name="fbs" value="{{ fbs }}" required min="0" max="1">
+
+                <label for="restecg">Resting ECG (restecg):</label>
+                <input type="number" name="restecg" value="{{ restecg }}" required min="0" max="2">
+
+                <label for="thalch">Max Heart Rate (thalch):</label>
+                <input type="number" name="thalch" value="{{ thalch }}" required>
+
+                <label for="exang">Exercise Angina (exang):</label>
+                <input type="number" name="exang" value="{{ exang }}" required min="0" max="1">
+
+                <label for="oldpeak">ST Depression (oldpeak):</label>
+                <input type="number" step="any" name="oldpeak" value="{{ oldpeak }}" required>
+
+                <label for="slope">Slope (slope):</label>
+                <input type="number" name="slope" value="{{ slope }}" required min="0" max="2">
+
+                <label for="ca">Major Vessels (ca):</label>
+                <input type="number" name="ca" value="{{ ca }}" required min="0" max="3">
+
+                <label for="thal">Thalassemia (thal):</label>
+                <input type="number" name="thal" value="{{ thal }}" required min="0" max="3">
+            </div>
+            <div class="button-container">
+                <input type="submit" value="&#x2714; Predict" title="Predict"> <!-- Check icon -->
+                <button type="button" onclick="clearFields()"><span class="button-icon">&#x1F5D1;</span> Clear</button> <!-- Trash bin icon -->
+            </div>
+        </form>
+        <div class="output-container">
+            {% if prediction_text %}
+                <div class="prediction">
+                    <h1>Prediction</h1>
+                    <p class="prediction-level">{{ prediction_text }}</p>
+                </div>
+                <div class="suggestion">
+                    <h1>Suggestions</h1>
+                    <p>{{ suggestion_text|safe }}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
