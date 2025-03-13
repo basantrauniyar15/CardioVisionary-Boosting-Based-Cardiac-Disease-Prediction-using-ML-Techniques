@@ -66,6 +66,12 @@ The following ML models were trained and evaluated:
 
 ---
 
+## 🛠️ Tech Stack
+- Python (Flask)
+- Machine Learning (Scikit-learn, Pandas, etc.)
+- HTML & CSS
+- **JavaScript** (for frontend interactivity)
+
 ## 🙌 Acknowledgement
 
 - UCI Machine Learning Repository for dataset  
