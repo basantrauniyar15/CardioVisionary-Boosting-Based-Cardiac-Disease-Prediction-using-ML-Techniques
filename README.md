@@ -46,29 +46,6 @@ The following ML models were trained and evaluated:
 
 ---
 
-## ⚙️ Installation & Setup
-
-1. Clone the Repository:
-```bash
-git clone https://github.com/your-username/cardio-visionary.git
-cd cardio-visionary
-```
-
-2. Install Dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Run the Application:
-```bash
-python app.py
-```
-
-4. Open your browser and go to:  
-`http://127.0.0.1:5000`
-
----
-
 ## 💻 Web Interface
 
 - Input health parameters via form fields  
