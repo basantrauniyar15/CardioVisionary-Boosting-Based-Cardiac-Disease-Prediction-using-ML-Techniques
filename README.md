@@ -72,6 +72,8 @@ The following ML models were trained and evaluated:
 - HTML & CSS
 - **JavaScript** (for frontend interactivity)
 
+---
+
 ## 🙌 Acknowledgement
 
 - UCI Machine Learning Repository for dataset  
